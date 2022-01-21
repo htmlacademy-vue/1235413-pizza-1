@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <VuePizzaIndex />
+    <AppLayout />
   </div>
 </template>
 
 <script>
-import VuePizzaIndex from "@/views/Index";
+import AppLayout from "@/layouts/AppLayout";
 export default {
   name: "App",
   components: {
-    VuePizzaIndex,
+    AppLayout,
   },
 };
 </script>

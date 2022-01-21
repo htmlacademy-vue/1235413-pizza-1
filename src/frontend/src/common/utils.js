@@ -1,9 +1,4 @@
-import {
-  Dough,
-  SizesByMultiplier,
-  Ingredients,
-  Sauces,
-} from "@/common/constants";
+import { Dough, SizesByMultiplier, Ingredients, Sauces } from "@/common/enums";
 
 const getNoSpacedString = (string) => string.replace(" ", "");
 

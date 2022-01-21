@@ -1,33 +1,5 @@
-export const Dough = {
-  Тонкое: "light",
-  Толстое: "large",
-};
-
-export const Ingredients = {
-  Грибы: "mushrooms",
-  Чеддер: "cheddar",
-  Салями: "salami",
-  Ветчина: "ham",
-  Ананас: "ananas",
-  Бекон: "bacon",
-  Лук: "onion",
-  Чили: "chile",
-  Халапеньо: "jalapeno",
-  Маслины: "olives",
-  Томаты: "tomatoes",
-  Лосось: "salmon",
-  Моцарелла: "mozzarella",
-  Пармезан: "parmesan",
-  Блючиз: "blue_cheese",
-};
-
-export const Sauces = {
-  Томатный: "tomato",
-  Сливочный: "creamy",
-};
-
-export const SizesByMultiplier = {
-  1: "small",
-  2: "normal",
-  3: "big",
-};
+export const DATA_TRANSFER_PAYLOAD = "payload";
+export const MOVE = "move";
+export const INGREDIENT_MIN_COUNT = 0;
+export const INGREDIENT_ONE_COUNT = 1;
+export const INGREDIENT_MAX_COUNT = 3;
