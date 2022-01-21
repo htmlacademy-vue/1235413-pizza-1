@@ -4,23 +4,19 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
       <div class="sheet__content dough">
-        <label
+        <RadioButton
           v-for="doughType in dough"
           :key="doughType.doughType"
-          class="dough__input"
-          :class="`dough__input--${doughType.doughType}`"
+          type="radio"
+          name="dought"
+          :value="doughType.doughType"
+          :class-name="['dough__input', `dough__input--${doughType.doughType}`]"
+          @change="onDoughChange"
+          :checked="doughType.doughType === chosenDough"
         >
-          <RadioButton
-            type="radio"
-            name="dought"
-            :value="doughType.doughType"
-            class="visually-hidden"
-            @change="onDoughChange"
-            :checked="doughType.doughType === chosenDough"
-          />
           <b>{{ doughType.name }}</b>
           <span>{{ doughType.description }}</span>
-        </label>
+        </RadioButton>
       </div>
     </div>
   </div>

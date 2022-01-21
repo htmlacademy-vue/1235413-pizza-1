@@ -123,10 +123,7 @@ export default {
       this.pizza.ingredients[ingredientIndex].amount =
         this.pizza.ingredients[ingredientIndex].amount - 1;
       if (this.pizza.ingredients[ingredientIndex].amount === 0) {
-        this.pizza.ingredients = [
-          ...this.pizza.ingredients.slice(0, ingredientIndex),
-          ...this.pizza.ingredients.slice(ingredientIndex + 1),
-        ];
+        this.pizza.ingredients.splice(ingredientIndex, 1);
       }
     },
   },

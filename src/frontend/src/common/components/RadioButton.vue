@@ -1,12 +1,15 @@
 <template>
-  <input
-    type="radio"
-    :name="name"
-    :value="value"
-    @change="onChange"
-    :class="className"
-    :checked="checked"
-  />
+  <label :class="className">
+    <input
+      type="radio"
+      :name="name"
+      :value="value"
+      @change="onChange"
+      class="visually-hidden"
+      :checked="checked"
+    />
+    <slot />
+  </label>
 </template>
 
 <script>
@@ -22,8 +25,8 @@ export default {
       default: "",
     },
     className: {
-      type: String,
-      default: "",
+      type: Array,
+      required: true,
     },
     checked: {
       type: Boolean,

@@ -6,21 +6,18 @@
       <div class="sheet__content ingredients">
         <div class="ingredients__sauce">
           <p>Основной соус:</p>
-
-          <label
+          <RadioButton
             v-for="sauce in sauces"
             :key="sauce.sauceType"
-            class="radio ingredients__input"
+            :class-name="['radio', 'ingredients__input']"
+            type="radio"
+            name="sauce"
+            :value="sauce.sauceType"
+            @change="onSauceChange"
+            :checked="sauce.sauceType === chosenSauce"
           >
-            <RadioButton
-              type="radio"
-              name="sauce"
-              :value="sauce.sauceType"
-              @change="onSauceChange"
-              :checked="sauce.sauceType === chosenSauce"
-            />
             <span>{{ sauce.name }}</span>
-          </label>
+          </RadioButton>
         </div>
 
         <div class="ingredients__filling">

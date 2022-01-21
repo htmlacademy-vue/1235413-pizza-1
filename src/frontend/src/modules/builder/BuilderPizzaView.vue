@@ -6,12 +6,31 @@
         :class="`pizza--foundation--${doughSize}-${sauceType}`"
       >
         <div class="pizza__wrapper">
-          <div
-            v-for="ingredient in pizza.ingredients"
-            :key="ingredient.ingredientType"
-            class="pizza__filling"
-            :class="`pizza__filling--${ingredient.ingredientType}`"
-          ></div>
+          <template v-for="ingredient in pizza.ingredients">
+            <div
+              :key="`${ingredient.ingredientType}-1`"
+              class="pizza__filling"
+              :class="`pizza__filling--${ingredient.ingredientType}`"
+            ></div>
+            <div
+              v-if="isSecondFilling(ingredient.amount)"
+              :key="`${ingredient.ingredientType}-2`"
+              class="pizza__filling"
+              :class="[
+                `pizza__filling--${ingredient.ingredientType}`,
+                `pizza__filling--second`,
+              ]"
+            ></div>
+            <div
+              v-if="isThirdFilling(ingredient.amount)"
+              :key="`${ingredient.ingredientType}-3`"
+              class="pizza__filling"
+              :class="[
+                `pizza__filling--${ingredient.ingredientType}`,
+                `pizza__filling--third`,
+              ]"
+            ></div>
+          </template>
         </div>
       </div>
     </div>
@@ -19,6 +38,7 @@
 </template>
 
 <script>
+import { INGREDIENT_ONE_COUNT, INGREDIENT_MAX_COUNT } from "@/common/constants";
 import AppDrop from "@/common/components/AppDrop";
 export default {
   name: "BuilderPizzaView",
@@ -45,6 +65,12 @@ export default {
   methods: {
     onDrop(ingredient) {
       this.$emit("addIngredient", ingredient);
+    },
+    isSecondFilling(amount) {
+      return amount !== INGREDIENT_ONE_COUNT;
+    },
+    isThirdFilling(amount) {
+      return amount === INGREDIENT_MAX_COUNT;
     },
   },
 };

@@ -3,7 +3,7 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      @click="onMinusClick(ingredient)"
+      @click="onMinusClick"
       :disabled="isMinAmount"
     >
       <span class="visually-hidden">Меньше</span>
@@ -12,7 +12,7 @@
     <button
       type="button"
       class="counter__button counter__button--plus"
-      @click="onPlusClick(ingredient)"
+      @click="onPlusClick"
       :disabled="isMaxAmount"
     >
       <span class="visually-hidden">Больше</span>
@@ -43,11 +43,11 @@ export default {
     },
   },
   methods: {
-    onMinusClick(ingredient) {
-      this.$emit("onMinusClick", ingredient);
+    onMinusClick() {
+      this.$emit("onMinusClick", this.ingredient);
     },
-    onPlusClick(ingredient) {
-      this.$emit("onPlusClick", ingredient);
+    onPlusClick() {
+      this.$emit("onPlusClick", this.ingredient);
     },
   },
 };

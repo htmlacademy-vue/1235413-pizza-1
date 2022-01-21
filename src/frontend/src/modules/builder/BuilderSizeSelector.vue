@@ -4,22 +4,21 @@
       <h2 class="title title--small sheet__title">Выберите размер</h2>
 
       <div class="sheet__content diameter">
-        <label
+        <RadioButton
           v-for="size in sizes"
           :key="size.sizeDescription"
-          class="diameter__input"
-          :class="`diameter__input--${size.sizeDescription}`"
+          type="radio"
+          name="diameter"
+          :value="size.sizeDescription"
+          :class-name="[
+            'diameter__input',
+            `diameter__input--${size.sizeDescription}`,
+          ]"
+          @change="onSizeChange"
+          :checked="size.sizeDescription === chosenSize"
         >
-          <RadioButton
-            type="radio"
-            name="diameter"
-            :value="size.sizeDescription"
-            class="visually-hidden"
-            @change="onSizeChange"
-            :checked="size.sizeDescription === chosenSize"
-          />
           <span>{{ size.name }}</span>
-        </label>
+        </RadioButton>
       </div>
     </div>
   </div>
