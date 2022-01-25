@@ -1,49 +1,42 @@
 <template>
-  <!DOCTYPE html>
-  <html lang="ru">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>V!U!E! Pizza - главная</title>
-    </head>
-    <body>
-      <form action="#" method="post">
-        <div class="content__wrapper">
-          <h1 class="title title--big">Конструктор пиццы</h1>
+  <main class="content">
+    <form action="#" method="post">
+      <div class="content__wrapper">
+        <h1 class="title title--big">Конструктор пиццы</h1>
 
-          <BuilderDoughSelector
-            :dough="dough"
-            :chosen-dough="pizza.dough.chosen"
-            @onDoughChange="onDoughChange"
-          />
+        <BuilderDoughSelector
+          :dough="dough"
+          :chosen-dough="pizza.dough.chosen"
+          @onDoughChange="onDoughChange"
+        />
 
-          <BuilderSizeSelector
-            :sizes="sizes"
-            :chosen-size="pizza.size.chosen"
-            @onSizeChange="onSizeChange"
-          />
+        <BuilderSizeSelector
+          :sizes="sizes"
+          :chosen-size="pizza.size.chosen"
+          @onSizeChange="onSizeChange"
+        />
 
-          <BuilderIngredientsSelector
-            :ingredients="ingredients"
-            :sauces="sauces"
-            :chosen-sauce="pizza.sauce.chosen"
-            :chosen-ingredients="pizza.ingredients"
-            @onSauceChange="onSauceChange"
-            @addIngredient="addIngredient"
-            @removeIngredient="removeIngredient"
-          />
+        <BuilderIngredientsSelector
+          :ingredients="ingredients"
+          :sauces="sauces"
+          :chosen-sauce="pizza.sauce.chosen"
+          :chosen-ingredients="pizza.ingredients"
+          @onSauceChange="onSauceChange"
+          @addIngredient="addIngredient"
+          @removeIngredient="removeIngredient"
+        />
 
-          <div class="content__pizza">
-            <BuilderPizzaNameInput @onPizzaNameInput="onPizzaNameInput" />
+        <div class="content__pizza">
+          <BuilderPizzaNameInput @onPizzaNameInput="onPizzaNameInput" />
 
-            <BuilderPizzaView :pizza="pizza" @addIngredient="addIngredient" />
+          <BuilderPizzaView :pizza="pizza" @addIngredient="addIngredient" />
 
-            <BuilderPriceCounter :pizza="pizza" />
-          </div>
+          <BuilderPriceCounter :pizza="pizza" />
         </div>
-      </form>
-    </body>
-  </html>
+      </div>
+    </form>
+    <router-view />
+  </main>
 </template>
 
 <script>
