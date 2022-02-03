@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import MutationTypes from "@/store/mutation-types";
 import { INGREDIENT_ONE_COUNT, INGREDIENT_MAX_COUNT } from "@/common/constants";
 import AppDrop from "@/common/components/AppDrop";
 export default {
@@ -53,18 +54,18 @@ export default {
   },
   computed: {
     doughSize() {
-      if (this.pizza.dough.chosen) {
-        return this.pizza.dough.chosen === "light" ? "small" : "big";
+      if (this.pizza.dough.doughType) {
+        return this.pizza.dough.doughType === "light" ? "small" : "big";
       }
       return null;
     },
     sauceType() {
-      return this.pizza.sauce.chosen;
+      return this.pizza.sauce.sauceType;
     },
   },
   methods: {
     onDrop(ingredient) {
-      this.$emit("addIngredient", ingredient);
+      this.$store.commit(MutationTypes.addPizzaIngredient, ingredient);
     },
     isSecondFilling(amount) {
       return amount !== INGREDIENT_ONE_COUNT;

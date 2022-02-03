@@ -1,5 +1,10 @@
 <template>
-  <div class="counter counter--orange ingredients__counter">
+  <div
+    :class="{
+      counter: true,
+      'counter--orange ingredients__counter': !isCart,
+    }"
+  >
     <button
       type="button"
       class="counter__button counter__button--minus"
@@ -8,10 +13,20 @@
     >
       <span class="visually-hidden">Меньше</span>
     </button>
-    <input type="text" name="counter" class="counter__input" :value="amount" />
+    <input
+      type="text"
+      name="counter"
+      class="counter__input"
+      :value="amount"
+      readonly
+    />
     <button
       type="button"
-      class="counter__button counter__button--plus"
+      :class="{
+        counter__button: true,
+        'counter__button--plus': true,
+        'counter__button--orange': isCart,
+      }"
       @click="onPlusClick"
       :disabled="isMaxAmount"
     >
@@ -25,7 +40,7 @@ import { INGREDIENT_MIN_COUNT, INGREDIENT_MAX_COUNT } from "@/common/constants";
 export default {
   name: "ItemCounter",
   props: {
-    ingredient: {
+    product: {
       type: Object,
       required: true,
     },
@@ -33,21 +48,25 @@ export default {
       type: Number,
       required: true,
     },
+    isCart: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     isMinAmount() {
       return this.amount === INGREDIENT_MIN_COUNT;
     },
     isMaxAmount() {
-      return this.amount === INGREDIENT_MAX_COUNT;
+      return !this.isCart ? this.amount === INGREDIENT_MAX_COUNT : false;
     },
   },
   methods: {
     onMinusClick() {
-      this.$emit("onMinusClick", this.ingredient);
+      this.$emit("onMinusClick", this.product);
     },
     onPlusClick() {
-      this.$emit("onPlusClick", this.ingredient);
+      this.$emit("onPlusClick", this.product);
     },
   },
 };

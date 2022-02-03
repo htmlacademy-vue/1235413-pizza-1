@@ -35,7 +35,7 @@
               />
 
               <ItemCounter
-                :ingredient="ingredient"
+                :product="ingredient"
                 :amount="getAmount(ingredient)"
                 @onMinusClick="onRemoveIngredientClick"
                 @onPlusClick="onAddIngredientClick"
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import MutationTypes from "@/store/mutation-types";
 import RadioButton from "@/common/components/RadioButton";
 import ItemCounter from "@/common/components/ItemCounter";
 import SelectorItem from "@/common/components/SelectorItem";
@@ -82,13 +83,16 @@ export default {
       return this.sauces.find((item) => item.sauceType === value);
     },
     onSauceChange(event) {
-      this.$emit("onSauceChange", this.getSauce(event.target.value));
+      this.$store.commit(
+        MutationTypes.changePizzaSauce,
+        this.getSauce(event.target.value)
+      );
     },
     onAddIngredientClick(ingredient) {
-      this.$emit("addIngredient", ingredient);
+      this.$store.commit(MutationTypes.addPizzaIngredient, ingredient);
     },
     onRemoveIngredientClick(ingredient) {
-      this.$emit("removeIngredient", ingredient);
+      this.$store.commit(MutationTypes.removePizzaIngredient, ingredient);
     },
     getAmount(ingredient) {
       const element = this.chosenIngredients.find(

@@ -4,11 +4,11 @@
       <MainLogo />
     </div>
     <div class="header__cart">
-      <router-link :to="{ name: 'Cart' }">0 ₽</router-link>
+      <router-link :to="{ name: 'Cart' }">{{ totalPrice }} ₽</router-link>
     </div>
     <template v-if="isLoggedIn">
       <div class="header__user">
-        <a href="user-data.html">
+        <router-link :to="{ name: 'Profile' }">
           <picture>
             <source
               type="image/webp"
@@ -26,8 +26,10 @@
             />
           </picture>
           <span>Василий Ложкин</span>
-        </a>
-        <a href="#" class="header__logout"><span>Выйти</span></a>
+        </router-link>
+        <a @click.prevent="onLogoutClick" class="header__logout"
+          ><span>Выйти</span></a
+        >
       </div>
     </template>
     <template v-if="isAnonymous">
@@ -41,13 +43,26 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import GetterTypes from "@/store/getter-types";
+import MutationTypes from "@/store/mutation-types";
+
 export default {
   name: "AppLayoutHeader",
-  data() {
-    return {
-      isLoggedIn: false,
-      isAnonymous: true,
-    };
+  computed: {
+    ...mapGetters({
+      totalPrice: GetterTypes.totalPrice,
+      isLoggedIn: GetterTypes.isLoggedIn,
+      isAnonymous: GetterTypes.isAnonymous,
+    }),
+  },
+  methods: {
+    onLogoutClick() {
+      this.$store.commit(MutationTypes.logout);
+      if (this.$route.name !== "Home") {
+        this.$router.push({ name: "Home" });
+      }
+    },
   },
 };
 </script>

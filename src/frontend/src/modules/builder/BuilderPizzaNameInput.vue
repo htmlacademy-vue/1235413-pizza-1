@@ -6,16 +6,24 @@
       name="pizza_name"
       @input.prevent="setPizzaName"
       placeholder="Введите название пиццы"
+      :value="pizza.name"
     />
   </label>
 </template>
 
 <script>
+import MutationTypes from "@/store/mutation-types";
 export default {
   name: "BuilderPizzaNameInput",
+  props: {
+    pizza: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     setPizzaName(event) {
-      this.$emit("onPizzaNameInput", event.target.value);
+      this.$store.commit(MutationTypes.setPizzaName, event.target.value);
     },
   },
 };
