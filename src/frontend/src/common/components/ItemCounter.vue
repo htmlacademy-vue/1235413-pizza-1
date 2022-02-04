@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import { INGREDIENT_MIN_COUNT, INGREDIENT_MAX_COUNT } from "@/common/constants";
 export default {
   name: "ItemCounter",
   props: {
@@ -48,6 +47,16 @@ export default {
       type: Number,
       required: true,
     },
+    minAmount: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
+    maxAmount: {
+      type: Number,
+      required: false,
+      default: Infinity,
+    },
     isCart: {
       type: Boolean,
       default: false,
@@ -55,10 +64,10 @@ export default {
   },
   computed: {
     isMinAmount() {
-      return this.amount === INGREDIENT_MIN_COUNT;
+      return this.amount === this.minAmount;
     },
     isMaxAmount() {
-      return !this.isCart ? this.amount === INGREDIENT_MAX_COUNT : false;
+      return this.amount === this.maxAmount;
     },
   },
   methods: {

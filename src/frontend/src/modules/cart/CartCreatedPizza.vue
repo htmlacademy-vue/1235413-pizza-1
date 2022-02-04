@@ -6,12 +6,12 @@
         class="product__img"
         width="56"
         height="56"
-        :alt="name"
+        :alt="pizza.name"
       />
       <div class="product__text">
-        <h2>{{ name }}</h2>
+        <h2>{{ pizza.name }}</h2>
         <ul>
-          <li>{{ size }}, {{ dough }}</li>
+          <li>{{ pizza.size.name }}, {{ dough }}</li>
           <li>Соус: {{ sauce }}</li>
           <li v-if="ingredients.length">Начинка: {{ ingredients }}</li>
         </ul>
@@ -63,16 +63,16 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      name: this.pizza.name,
-      size: this.pizza.size.name,
-      dough: getDoughDescription(this.pizza.dough.doughType),
-      sauce: this.pizza.sauce.name.toLowerCase(),
-      ingredients: getListofIngredients(this.pizza.ingredients),
-    };
-  },
   computed: {
+    dough() {
+      return getDoughDescription(this.pizza.dough.doughType);
+    },
+    sauce() {
+      return this.pizza.sauce.name.toLowerCase();
+    },
+    ingredients() {
+      return getListofIngredients(this.pizza.ingredients);
+    },
     price() {
       return getPizzaPrice(this.pizza);
     },

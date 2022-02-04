@@ -37,6 +37,8 @@
               <ItemCounter
                 :product="ingredient"
                 :amount="getAmount(ingredient)"
+                :min-amount="minAmount"
+                :max-amount="maxAmount"
                 @onMinusClick="onRemoveIngredientClick"
                 @onPlusClick="onAddIngredientClick"
               />
@@ -53,6 +55,7 @@ import MutationTypes from "@/store/mutation-types";
 import RadioButton from "@/common/components/RadioButton";
 import ItemCounter from "@/common/components/ItemCounter";
 import SelectorItem from "@/common/components/SelectorItem";
+import { INGREDIENT_MIN_COUNT, INGREDIENT_MAX_COUNT } from "@/common/constants";
 export default {
   name: "BuilderIngredientsSelector",
   components: {
@@ -77,6 +80,12 @@ export default {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      minAmount: INGREDIENT_MIN_COUNT,
+      maxAmount: INGREDIENT_MAX_COUNT,
+    };
   },
   methods: {
     getSauce(value) {

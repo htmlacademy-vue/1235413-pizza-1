@@ -33,9 +33,6 @@ const mutations = {
       (additional) => additional.id === payload.id
     );
     state.additionals[additionalIndex].amount -= 1;
-    if (state.additionals[additionalIndex].amount === 0) {
-      state.additionals.splice(additionalIndex, 1);
-    }
   },
   [MutationTypes.addPizza](state, payload) {
     const pizza = state.pizzas.find((pizza) => pizza.id === payload.id);
