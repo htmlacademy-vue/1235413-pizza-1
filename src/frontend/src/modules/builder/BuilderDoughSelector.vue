@@ -24,6 +24,7 @@
 
 <script>
 import RadioButton from "@/common/components/RadioButton";
+import MutationTypes from "@/store/mutation-types";
 export default {
   name: "BuilderDoughSelector",
   components: {
@@ -44,7 +45,10 @@ export default {
       return this.dough.find((item) => item.doughType === value);
     },
     onDoughChange(event) {
-      this.$emit("onDoughChange", this.getDough(event.target.value));
+      this.$store.commit(
+        MutationTypes.changePizzaDough,
+        this.getDough(event.target.value)
+      );
     },
   },
 };

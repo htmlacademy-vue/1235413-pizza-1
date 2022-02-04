@@ -2,8 +2,18 @@
   <div class="layout__sidebar sidebar">
     <MainLogo class="layout__logo" />
 
-    <a class="layout__link layout__link--active" href="#">История заказов</a>
-    <a class="layout__link" href="#">Мои данные</a>
+    <router-link
+      :to="{ name: 'Orders' }"
+      class="layout__link"
+      active-class="layout__link--active"
+      >История заказов</router-link
+    >
+    <router-link
+      :to="{ name: 'Profile' }"
+      class="layout__link"
+      active-class="layout__link--active"
+      >Мои данные</router-link
+    >
   </div>
 </template>
 

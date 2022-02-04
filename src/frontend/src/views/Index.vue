@@ -6,30 +6,25 @@
 
         <BuilderDoughSelector
           :dough="dough"
-          :chosen-dough="pizza.dough.chosen"
-          @onDoughChange="onDoughChange"
+          :chosen-dough="pizza.dough.doughType"
         />
 
         <BuilderSizeSelector
           :sizes="sizes"
-          :chosen-size="pizza.size.chosen"
-          @onSizeChange="onSizeChange"
+          :chosen-size="pizza.size.sizeDescription"
         />
 
         <BuilderIngredientsSelector
           :ingredients="ingredients"
           :sauces="sauces"
-          :chosen-sauce="pizza.sauce.chosen"
+          :chosen-sauce="pizza.sauce.sauceType"
           :chosen-ingredients="pizza.ingredients"
-          @onSauceChange="onSauceChange"
-          @addIngredient="addIngredient"
-          @removeIngredient="removeIngredient"
         />
 
         <div class="content__pizza">
-          <BuilderPizzaNameInput @onPizzaNameInput="onPizzaNameInput" />
+          <BuilderPizzaNameInput :pizza="pizza" />
 
-          <BuilderPizzaView :pizza="pizza" @addIngredient="addIngredient" />
+          <BuilderPizzaView :pizza="pizza" />
 
           <BuilderPriceCounter :pizza="pizza" />
         </div>
@@ -41,6 +36,11 @@
 
 <script>
 import pizza from "@/static/pizza.json";
+import additionals from "@/static/misc.json";
+
+import MutationTypes from "@/store/mutation-types";
+import { mapState } from "vuex";
+
 import { getDough, getSizes, getIngredients, getSauces } from "@/common/utils";
 import BuilderDoughSelector from "@/modules/builder/BuilderDoughSelector";
 import BuilderSizeSelector from "@/modules/builder/BuilderSizeSelector";
@@ -64,61 +64,18 @@ export default {
       sizes: getSizes(pizza),
       ingredients: getIngredients(pizza),
       sauces: getSauces(pizza),
-      pizza: {
-        name: null,
-        dough: {
-          chosen: "light",
-          price: 300,
-        },
-        size: {
-          chosen: "small",
-          priceMultiplier: 1,
-        },
-        ingredients: [],
-        sauce: {
-          chosen: "tomato",
-          price: 50,
-        },
-      },
     };
   },
-  methods: {
-    onPizzaNameInput(pizzaName) {
-      this.pizza.name = pizzaName;
-    },
-    onDoughChange(dough) {
-      this.pizza.dough.chosen = dough.doughType;
-      this.pizza.dough.price = dough.price;
-    },
-    onSizeChange(size) {
-      this.pizza.size.chosen = size.sizeDescription;
-      this.pizza.size.priceMultiplier = size.multiplier;
-    },
-    onSauceChange(sauce) {
-      this.pizza.sauce.chosen = sauce.sauceType;
-      this.pizza.sauce.price = sauce.price;
-    },
-    addIngredient(ingredient) {
-      const ingredientIndex = this.pizza.ingredients.findIndex(
-        (item) => item.ingredientType === ingredient.ingredientType
-      );
-      if (this.pizza.ingredients.length === 0 || ingredientIndex === -1) {
-        this.pizza.ingredients.push({ ...ingredient, amount: 1 });
-        return;
-      }
-      this.pizza.ingredients[ingredientIndex].amount =
-        this.pizza.ingredients[ingredientIndex].amount + 1;
-    },
-    removeIngredient(ingredient) {
-      const ingredientIndex = this.pizza.ingredients.findIndex(
-        (item) => item.ingredientType === ingredient.ingredientType
-      );
-      this.pizza.ingredients[ingredientIndex].amount =
-        this.pizza.ingredients[ingredientIndex].amount - 1;
-      if (this.pizza.ingredients[ingredientIndex].amount === 0) {
-        this.pizza.ingredients.splice(ingredientIndex, 1);
-      }
-    },
+  computed: {
+    ...mapState({
+      pizza: (state) => state.builder.pizza,
+      additionals: (state) => state.cart.additionals,
+    }),
+  },
+  created() {
+    if (!this.additionals.length) {
+      this.$store.commit(MutationTypes.setAdditionals, additionals);
+    }
   },
 };
 </script>

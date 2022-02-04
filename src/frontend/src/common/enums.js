@@ -31,3 +31,15 @@ export const SizesByMultiplier = {
   2: "normal",
   3: "big",
 };
+
+export const InputErrors = {
+  email: "Введите корректный адрес электронной почты",
+  password: "Слишком короткий пароль",
+  tel: "Введите корректный номер телефона",
+};
+
+export const DeliveryTypes = {
+  pickup: 1,
+  newAddress: 2,
+  existingAddress: 3,
+};

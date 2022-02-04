@@ -26,6 +26,7 @@
 
 <script>
 import RadioButton from "@/common/components/RadioButton";
+import MutationTypes from "@/store/mutation-types";
 export default {
   name: "BuilderSizeSelector",
   components: {
@@ -46,7 +47,10 @@ export default {
       return this.sizes.find((item) => item.sizeDescription === value);
     },
     onSizeChange(event) {
-      this.$emit("onSizeChange", this.getSize(event.target.value));
+      this.$store.commit(
+        MutationTypes.changePizzaSize,
+        this.getSize(event.target.value)
+      );
     },
   },
 };

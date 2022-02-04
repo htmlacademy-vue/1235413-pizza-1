@@ -1,279 +1,125 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form
+    action="test.html"
+    method="post"
+    class="layout-form"
+    @submit.prevent="onSubmit"
+  >
     <main class="content cart">
       <div class="container">
         <div class="cart__title">
           <h1 class="title title--big">Корзина</h1>
         </div>
 
-        <!-- <div class="sheet cart__empty">
+        <div
+          v-if="!pizzas.length && !additionals.length"
+          class="sheet cart__empty"
+        >
           <p>В корзине нет ни одного товара</p>
-        </div> -->
-
-        <ul class="cart-list sheet">
-          <li class="cart-list__item">
-            <div class="product cart-list__product">
-              <img
-                src="@/assets/img/product.svg"
-                class="product__img"
-                width="56"
-                height="56"
-                alt="Капричоза"
-              />
-              <div class="product__text">
-                <h2>Капричоза</h2>
-                <ul>
-                  <li>30 см, на тонком тесте</li>
-                  <li>Соус: томатный</li>
-                  <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="counter cart-list__counter">
-              <button
-                type="button"
-                class="counter__button counter__button--minus"
-              >
-                <span class="visually-hidden">Меньше</span>
-              </button>
-              <input
-                type="text"
-                name="counter"
-                class="counter__input"
-                value="1"
-              />
-              <button
-                type="button"
-                class="counter__button counter__button--plus counter__button--orange"
-              >
-                <span class="visually-hidden">Больше</span>
-              </button>
-            </div>
-
-            <div class="cart-list__price">
-              <b>782 ₽</b>
-            </div>
-
-            <div class="cart-list__button">
-              <button type="button" class="cart-list__edit">Изменить</button>
-            </div>
-          </li>
-          <li class="cart-list__item">
-            <div class="product cart-list__product">
-              <img
-                src="@/assets/img/product.svg"
-                class="product__img"
-                width="56"
-                height="56"
-                alt="Любимая пицца"
-              />
-              <div class="product__text">
-                <h2>Любимая пицца</h2>
-                <ul>
-                  <li>30 см, на тонком тесте</li>
-                  <li>Соус: томатный</li>
-                  <li>
-                    Начинка: грибы, лук, ветчина, пармезан, ананас, бекон, блю
-                    чиз
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="counter cart-list__counter">
-              <button
-                type="button"
-                class="counter__button counter__button--minus"
-              >
-                <span class="visually-hidden">Меньше</span>
-              </button>
-              <input
-                type="text"
-                name="counter"
-                class="counter__input"
-                value="2"
-              />
-              <button
-                type="button"
-                class="counter__button counter__button--plus counter__button--orange"
-              >
-                <span class="visually-hidden">Больше</span>
-              </button>
-            </div>
-
-            <div class="cart-list__price">
-              <b>782 ₽</b>
-            </div>
-
-            <div class="cart-list__button">
-              <button type="button" class="cart-list__edit">Изменить</button>
-            </div>
-          </li>
-        </ul>
-
-        <div class="cart__additional">
-          <ul class="additional-list">
-            <li class="additional-list__item sheet">
-              <p class="additional-list__description">
-                <img
-                  src="@/assets/img/cola.svg"
-                  width="39"
-                  height="60"
-                  alt="Coca-Cola 0,5 литра"
-                />
-                <span>Coca-Cola 0,5 литра</span>
-              </p>
-
-              <div class="additional-list__wrapper">
-                <div class="counter additional-list__counter">
-                  <button
-                    type="button"
-                    class="counter__button counter__button--minus"
-                  >
-                    <span class="visually-hidden">Меньше</span>
-                  </button>
-                  <input
-                    type="text"
-                    name="counter"
-                    class="counter__input"
-                    value="2"
-                  />
-                  <button
-                    type="button"
-                    class="counter__button counter__button--plus counter__button--orange"
-                  >
-                    <span class="visually-hidden">Больше</span>
-                  </button>
-                </div>
-
-                <div class="additional-list__price">
-                  <b>× 56 ₽</b>
-                </div>
-              </div>
-            </li>
-            <li class="additional-list__item sheet">
-              <p class="additional-list__description">
-                <img
-                  src="@/assets/img/sauce.svg"
-                  width="39"
-                  height="60"
-                  alt="Острый соус"
-                />
-                <span>Острый соус</span>
-              </p>
-
-              <div class="additional-list__wrapper">
-                <div class="counter additional-list__counter">
-                  <button
-                    type="button"
-                    class="counter__button counter__button--minus"
-                  >
-                    <span class="visually-hidden">Меньше</span>
-                  </button>
-                  <input
-                    type="text"
-                    name="counter"
-                    class="counter__input"
-                    value="2"
-                  />
-                  <button
-                    type="button"
-                    class="counter__button counter__button--plus counter__button--orange"
-                  >
-                    <span class="visually-hidden">Больше</span>
-                  </button>
-                </div>
-
-                <div class="additional-list__price">
-                  <b>× 30 ₽</b>
-                </div>
-              </div>
-            </li>
-            <li class="additional-list__item sheet">
-              <p class="additional-list__description">
-                <img
-                  src="@/assets/img/potato.svg"
-                  width="39"
-                  height="60"
-                  alt="Картошка из печи"
-                />
-                <span>Картошка из печи</span>
-              </p>
-
-              <div class="additional-list__wrapper">
-                <div class="counter additional-list__counter">
-                  <button
-                    type="button"
-                    class="counter__button counter__button--minus"
-                  >
-                    <span class="visually-hidden">Меньше</span>
-                  </button>
-                  <input
-                    type="text"
-                    name="counter"
-                    class="counter__input"
-                    value="2"
-                  />
-                  <button
-                    type="button"
-                    class="counter__button counter__button--plus counter__button--orange"
-                  >
-                    <span class="visually-hidden">Больше</span>
-                  </button>
-                </div>
-
-                <div class="additional-list__price">
-                  <b>× 56 ₽</b>
-                </div>
-              </div>
-            </li>
-          </ul>
         </div>
 
-        <div class="cart__form">
-          <div class="cart-form">
-            <label class="cart-form__select">
-              <span class="cart-form__label">Получение заказа:</span>
+        <template v-if="pizzas.length || additionals.length">
+          <ul v-if="pizzas.length" class="cart-list sheet">
+            <CartCreatedPizza
+              v-for="pizza in pizzas"
+              :key="pizza.id"
+              :pizza="pizza"
+            />
+          </ul>
 
-              <select name="test" class="select">
-                <option value="1">Заберу сам</option>
-                <option value="2">Новый адрес</option>
-                <option value="3">Дом</option>
-              </select>
-            </label>
+          <div class="cart__additional">
+            <ul v-if="additionals.length" class="additional-list">
+              <CartAdditionals
+                v-for="additional in additionals"
+                :key="additional.name"
+                :additional="additional"
+              />
+            </ul>
+          </div>
 
-            <label class="input input--big-label">
-              <span>Контактный телефон:</span>
-              <input type="text" name="tel" placeholder="+7 999-999-99-99" />
-            </label>
+          <div class="cart__form">
+            <div class="cart-form">
+              <label class="cart-form__select">
+                <span class="cart-form__label">Получение заказа:</span>
 
-            <div class="cart-form__address">
-              <span class="cart-form__label">Новый адрес:</span>
+                <select
+                  name="test"
+                  class="select"
+                  @change="onDeliveryTypeChange"
+                >
+                  <option value="1">Заберу сам</option>
+                  <option value="2">Новый адрес</option>
+                  <option v-if="isLoggedIn" value="3">Дом</option>
+                </select>
+              </label>
 
-              <div class="cart-form__input">
-                <label class="input">
-                  <span>Улица*</span>
-                  <input type="text" name="street" />
-                </label>
-              </div>
+              <label
+                v-if="deliveryTypePickup || deliveryTypeNewAddress"
+                class="input input--big-label"
+              >
+                <span>Контактный телефон:</span>
+                <input
+                  @change.prevent="onTelInput"
+                  type="text"
+                  name="tel"
+                  placeholder="+7 999-999-99-99"
+                />
+                <AppInputError v-if="telError" :error="telError" />
+              </label>
 
-              <div class="cart-form__input cart-form__input--small">
-                <label class="input">
-                  <span>Дом*</span>
-                  <input type="text" name="house" />
-                </label>
-              </div>
+              <div
+                v-if="deliveryTypeNewAddress || deliveryTypeExistingAddress"
+                class="cart-form__address"
+              >
+                <span class="cart-form__label"
+                  >{{
+                    deliveryTypeExistingAddress ? "Существующий" : "Новый"
+                  }}
+                  адрес:</span
+                >
 
-              <div class="cart-form__input cart-form__input--small">
-                <label class="input">
-                  <span>Квартира</span>
-                  <input type="text" name="apartment" />
-                </label>
+                <div class="cart-form__input">
+                  <label class="input">
+                    <span>Улица*</span>
+                    <input
+                      v-model="order.address.street"
+                      @change.prevent="onStreetInput"
+                      type="text"
+                      name="street"
+                      :readonly="isLoggedIn && deliveryTypeExistingAddress"
+                    />
+                  </label>
+                </div>
+
+                <div class="cart-form__input cart-form__input--small">
+                  <label class="input">
+                    <span>Дом*</span>
+                    <input
+                      v-model="order.address.building"
+                      @change.prevent="onBuildingInput"
+                      type="text"
+                      name="house"
+                      :readonly="isLoggedIn && deliveryTypeExistingAddress"
+                    />
+                  </label>
+                </div>
+
+                <div class="cart-form__input cart-form__input--small">
+                  <label class="input">
+                    <span>Квартира</span>
+                    <input
+                      v-model="order.address.apt"
+                      @change.prevent="onAptInput"
+                      type="text"
+                      name="apartment"
+                      :readonly="isLoggedIn && deliveryTypeExistingAddress"
+                    />
+                  </label>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </div>
     </main>
     <section class="footer">
@@ -288,20 +134,149 @@
         Перейти к конструктору<br />чтоб собрать ещё одну пиццу
       </p>
       <div class="footer__price">
-        <b>Итого: 2 228 ₽</b>
+        <b>Итого: {{ totalPrice }} ₽</b>
       </div>
 
       <div class="footer__submit">
-        <button type="submit" class="button">Оформить заказ</button>
+        <button type="submit" class="button" :disabled="isDisabled">
+          Оформить заказ
+        </button>
       </div>
     </section>
+    <CartSuccessPopup
+      v-if="isPopupShown"
+      @onSuccessPopupClose="onSuccessPopupClose"
+    />
   </form>
 </template>
 
 <script>
+import MutationTypes from "@/store/mutation-types";
+import CartCreatedPizza from "@/modules/cart/CartCreatedPizza";
+import CartAdditionals from "@/modules/cart/CartAdditionals";
+import CartSuccessPopup from "@/modules/cart/CartSuccessPopup";
+import { mapState, mapGetters } from "vuex";
+import GetterTypes from "@/store/getter-types";
+import { InputErrors, DeliveryTypes } from "@/common/enums";
+import { telTransformationRegex, TEL_LENGTH } from "@/common/constants";
+import { cartOrderValidator } from "@/common/utils";
 export default {
   name: "CartView",
+  components: {
+    CartCreatedPizza,
+    CartAdditionals,
+    CartSuccessPopup,
+  },
+  data() {
+    return {
+      isPopupShown: false,
+      order: {
+        pizzas: [],
+        additionals: [],
+        address: {
+          street: "",
+          building: "",
+          apt: "",
+        },
+        tel: "",
+        delivery: 1,
+      },
+      telError: "",
+    };
+  },
+  computed: {
+    ...mapState({
+      pizzas: (state) => state.cart.pizzas,
+      additionals: (state) => state.cart.additionals,
+    }),
+    ...mapGetters({
+      totalPrice: GetterTypes.totalPrice,
+      isLoggedIn: GetterTypes.isLoggedIn,
+    }),
+    isDisabled() {
+      return cartOrderValidator(this.order);
+    },
+    deliveryType() {
+      return this.order.delivery;
+    },
+    deliveryTypePickup() {
+      return this.deliveryType === DeliveryTypes.pickup;
+    },
+    deliveryTypeNewAddress() {
+      return this.deliveryType === DeliveryTypes.newAddress;
+    },
+    deliveryTypeExistingAddress() {
+      return this.deliveryType === DeliveryTypes.existingAddress;
+    },
+  },
+  methods: {
+    onTelInput(event) {
+      const emptyTel = event.target.value === "";
+      const telMatch = event.target.value.match(telTransformationRegex);
+      const tel = telMatch !== null ? telMatch.join("") : "";
+
+      if (tel.length === TEL_LENGTH || emptyTel) {
+        this.order.tel = tel;
+        this.telError = "";
+        return;
+      }
+      this.order.tel = "";
+      this.telError = InputErrors.tel;
+    },
+    onStreetInput(event) {
+      this.order.address.street = event.target.value;
+    },
+    onBuildingInput(event) {
+      this.order.address.building = event.target.value;
+    },
+    onAptInput(event) {
+      this.order.address.apt = event.target.value;
+    },
+    onDeliveryTypeChange(event) {
+      this.order.delivery = Number(event.target.value);
+    },
+    onSubmit() {
+      if (!cartOrderValidator(this.order)) {
+        this.isPopupShown = true;
+        this.$store.commit(MutationTypes.addOrder, this.order);
+      }
+    },
+    onSuccessPopupClose() {
+      this.$store.commit(MutationTypes.resetCart);
+    },
+    setAddress() {
+      if (this.isLoggedIn && this.order.delivery === 3) {
+        this.order.address.street = "Test data";
+        this.order.address.building = "666";
+        this.order.address.apt = "13";
+        return;
+      }
+      this.order.address.street = "";
+      this.order.address.building = "";
+      this.order.address.apt = "";
+    },
+  },
+  watch: {
+    deliveryType() {
+      this.setAddress();
+    },
+  },
+  mounted() {
+    this.order.pizzas = this.pizzas;
+    this.order.additionals = this.additionals;
+    this.setAddress();
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.input--big-label {
+  position: relative;
+}
+.error {
+  position: absolute;
+  z-index: 2;
+  bottom: -20px;
+  right: -32px;
+}
+</style>
